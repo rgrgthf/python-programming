@@ -1,0 +1,15 @@
+#eval函数是python的内置函数，可以去掉字符串最外侧的引号并执行其中的表达式，返回计算结果。
+#eval()函数经常和input()函数一起使用
+#语法格式：变量=eval（“要执行的表达式”）
+#示例
+s="1+2"
+print(eval(s))#输出 3
+age=int(input("请输入你的年龄:"))#提示用户输入年龄，并将输入的字符串转换为整数类型并存储在变量age中
+print(age,type(age))#输出用户输入的年龄
+#同时也可以使用eval函数
+height=eval(input("请输入您的身高："))#提示用户输入身高，并将输入的字符串转换为浮点数类型并存储在变量heigh中
+print(height,type(height))#输出用户输入的身高
+#注意：eval()函数在处理字符串时非常危险，因为它可以执行任意代码。因此，在使用eval()函数之前，请确保字符串中的内容是可信的。
+#示例
+s="print('Hello World')"
+eval(s)#输出Hello World

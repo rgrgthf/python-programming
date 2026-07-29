@@ -1,0 +1,92 @@
+# ============================================================
+# 一、什么是标识符
+# ============================================================
+# 标识符（Identifier）是开发者在程序中自定义的名字，
+# 用于标识变量、函数、类、模块等。
+
+# ============================================================
+# 二、标识符的组成规则
+# ============================================================
+# 1. 只能由 字母（A-Z、a-z）、数字（0-9）、下划线（_） 组成
+# 2. 不能以数字开头（但可以以下划线开头）
+# 3. 不能是 Python 的关键字（keyword）
+# 4. 区分大小写（name 和 Name 是不同的标识符）
+
+# ============================================================
+# 三、Python 的关键字（keyword）
+# ============================================================
+# 关键字是 Python 中有特殊含义的保留词，不能用作标识符。
+# 可通过 keyword 模块查看当前版本的所有关键字：
+import keyword
+print(keyword.kwlist)
+print(keyword.iskeyword("if"))   # True，if 是关键字
+print(keyword.iskeyword("print")) # False，print 是内置函数，非关键字
+
+# Python 3 常见关键字：
+# False, None, True, and, as, assert, async, await, break,
+# class, continue, def, del, elif, else, except, finally, for,
+# from, global, if, import, in, is, lambda, nonlocal, not, or,
+# pass, raise, return, try, while, with, yield
+
+# 注意：print、exec 在 Python 3 中不是关键字，而是内置函数。
+# 可以使用它们作为标识符（但不推荐，会覆盖内置功能）。
+
+# ============================================================
+# 四、Python 命名风格约定（PEP 8）
+# ============================================================
+# Python 社区遵循 PEP 8 风格指南，不同场景用不同命名风格：
+
+# ① snake_case（蛇形命名）— 变量、函数、方法、模块名
+#    全小写，单词之间用下划线连接
+user_name = "张三"
+def get_user_age():
+    pass
+
+# ② PascalCase / CapWords（大驼峰）— 类名
+#    每个单词首字母大写，无下划线
+class StudentManager:
+    pass
+
+# ③ UPPER_CASE（全大写）— 常量
+#    全大写，单词之间用下划线连接
+MAX_RETRY_COUNT = 3
+PI = 3.14159
+
+# ④ _single_leading_underscore（单下划线前缀）
+#    表示"内部使用"或"受保护"的约定，from module import * 不会导入
+_internal_var = "仅供模块内部使用"
+
+# ⑤ __double_leading_underscore（双下划线前缀）
+#    触发名称改写（name mangling），用于避免子类属性冲突
+class MyClass:
+    __private_attr = 42  # 实际被改写为 _MyClass__private_attr
+
+# ⑥ __dunder__（双下划线前后都有）— 系统定义的魔术方法
+#    如 __init__, __str__, __len__ 等，开发者不要自定义这类名称
+class Demo:
+    def __init__(self):  # 构造方法
+        pass
+
+# ⑦ single_trailing_underscore_（单下划线后缀）
+#    用于避免与 Python 关键字或内置名冲突
+#    例如：class_（类）、list_（列表）、type_（类型）
+class_ = "避免和关键字 class 冲突"
+
+# ============================================================
+# 五、命名的其他建议
+# ============================================================
+# 1. 见名知义：名称应具有描述性，能反映变量的用途
+#    ✅ student_count    ❌ sc / a / temp
+# 2. 避免覆盖内置名：不要用 list, str, dict, len, input, open 等
+#    要查看所有内置名：
+#    import builtins; print(dir(builtins))
+# 3. 避免单个字母命名（循环变量 i, j, k 和数学公式除外）
+# 4. 尽量不要用中文命名（虽然 Python 3 允许，但兼容性差）
+
+# ============================================================
+# 六、Python 3 的 Unicode 支持
+# ============================================================
+# Python 3 允许标识符包含 Unicode 字符（如中文、日文等），但不推荐：
+姓名 = "李四"    # 语法合法但不推荐
+print(姓名)
+# 原因：跨平台兼容性差、国际协作不便、某些编辑器支持不佳
