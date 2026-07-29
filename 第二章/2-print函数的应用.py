@@ -51,15 +51,14 @@ print(chr(91))   # → [
 print(ord('C'))  # → 67
 
 # Unicode 码点（中文等非 ASCII 字符）
-print(ord("何"))  # → 20309
-print(ord("梓"))  # → 26771
-print(ord("坚"))  # → 22362
+print(ord("小"))  # → 23567
+print(ord("明"))  # → 26126
 
 # 用 chr() 反向还原中文
-print(chr(20309) + chr(26771) + chr(22362))  # → 何梓坚
+print(chr(23567) + chr(26126))  # → 小明
 # 加空格再拼接
-print(chr(20309) + chr(26771) + chr(22362) + chr(32) + chr(20320) + chr(22909))
-# → 何梓坚 你好
+print(chr(23567) + chr(26126) + chr(32) + chr(20320) + chr(22909))
+# → 小明 你好
 
 # 控制字符（不可见）
 print(ord(" "))  # → 32，空格是可打印字符
