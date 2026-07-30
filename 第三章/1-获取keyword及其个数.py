@@ -1,10 +1,10 @@
 # ============================================================
 # keyword 模块 — 查看和检测 Python 关键字
 # ============================================================
-import keyword
+import keyword#把 Python 内置的 keyword 模块加载进来
 
 # ① 查看所有关键字（返回列表）
-print(keyword.kwlist)
+print(keyword.kwlist)#把 Python 内置的 keyword 模块加载进来
 # Python 3.10+ 的输出示例：
 # ['False', 'None', 'True', 'and', 'as', 'assert', 'async', 'await',
 #  'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except',

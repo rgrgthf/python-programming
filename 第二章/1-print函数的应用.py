@@ -17,7 +17,7 @@ print("Hello, World!")
 print(a)
 print(b)
 print(a + b)
-print("The sum of a and b is:", a + b)  # 多个内容用逗号分隔
+print("The sum of a and b is:", a + b,sep="")  # 多个内容用逗号分隔
 
 # ============================================================
 # 二、sep 参数 — 自定义分隔符
@@ -56,7 +56,7 @@ print(ord("明"))  # → 26126
 
 # 用 chr() 反向还原中文
 print(chr(23567) + chr(26126))  # → 小明
-# 加空格再拼接
+# 加空格再拼接' '=32
 print(chr(23567) + chr(26126) + chr(32) + chr(20320) + chr(22909))
 # → 小明 你好
 
