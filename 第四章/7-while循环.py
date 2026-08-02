@@ -29,7 +29,8 @@ print()
 answer = ""
 while answer != "quit":
     answer = input("请输入内容（输入 quit 退出）：")
-    print("你输入了：", answer)
+    if answer != "quit":
+        print("你输入了：", answer)  # ← 加判断，quit 就不输出了
 
 # ② 循环次数不确定 — 猜数字游戏
 import random
