@@ -9,15 +9,16 @@
 # 1. 求 1~100 之间所有质数的和。
 # 提示：内层判断质数（试到 √n），外层累加
 # 你的代码：
-counts = 0
-for i in range(1,101):
-    for j in range(2,int(i**0.5+1)):
-        if i % j == 0:
-            break
-        else:
-            counts += i
-print(counts)
-#这里我察觉到一个问题，当i遍历到2时，j只遍历2，但2%2==0，但2是最小的质数吧，但是这个程序并不会将2加到counts中
+# ⏳ 已移至「重做练习2-循环逻辑.py」第 1 题
+# 参考实现：
+# counts = 0
+# for i in range(2, 101):
+#     for j in range(2, int(i**0.5) + 1):
+#         if i % j == 0:
+#             break
+#     else:
+#         counts += i
+# print(counts)  # → 1060
 
 # 2. 输入一个整数 n，求 n!（阶乘）。
 #    例：5! = 5×4×3×2×1 = 120
@@ -35,30 +36,42 @@ print(fac)
 #    （a e i o u，不区分大小写）出现的次数。
 # 提示：用 in 判断字符是否在 "aeiouAEIOU" 里
 # 你的代码：
-s = "beautiful day, let's go python"
-counts = {}
-for ch in s:
-    if ch in "aeiouAEIOU":
-        if ch in counts:
-            counts[ch] += 1
-        else:
-            counts[ch] = 1
-print(counts)
-#这里题目要求应该是元音字母出现次数，应该输出的是所有键的值的总和，但我不会
+# ⏳ 已移至「重做练习2-循环逻辑.py」第 2 题
+# 参考实现：
+# s = "beautiful day, let's go python"
+# count = 0
+# for ch in s:
+#     if ch in "aeiouAEIOU":
+#         count += 1
+# print(count)  # → 12
 
 # 4. 输入一个字符串，用循环把它反转并输出。
 #    例：输入 "hello" → 输出 "olleh"
 # 提示：从最后一个字符往前取（负索引），或倒着遍历
 # 你的代码：
-s = input("请输入一个字符串：")
-for ch in range(s,-1):
-    pass
-#我没思路了 
+# ⏳ 已移至「重做练习2-循环逻辑.py」第 3 题
+# 参考实现（新字符往前插法，无需 len）：
+# s = input("请输入一个字符串：")
+# rev = ""
+# for ch in s:
+#     rev = ch + rev
+# print(rev)
 
 # 5. 判断回文数：输入一个整数，正着读和倒着读一样就是回文数。
 #    例：12321 ✅，12345 ❌
 # 提示：先把整数转成字符串 str()，再用第 4 题的反转思路
 # 你的代码：
+# ⏳ 已移至「重做练习2-循环逻辑.py」第 4 题
+# 参考实现：
+# num = int(input("请输入一个整数："))
+# s = str(num)
+# rev = ""
+# for ch in s:
+#     rev = ch + rev
+# if s == rev:
+#     print("是回文数")
+# else:
+#     print("不是回文数")
 
 
 # 6. 用辗转相除法求两个正整数的最大公约数。
@@ -81,9 +94,17 @@ print("最大公约数为：",a)
 #    123454321
 # 提示：每行 = 空格 + 递增数字 + 递减数字
 # 你的代码：
-n = 9
-for i in range(1,n+1):
-    print(" "*(n-i-4)+i)#怎么打递增数字呢？
+# ⏳ 已移至「重做练习2-循环逻辑.py」第 5 题
+# 参考实现：
+# n = 5
+# for i in range(1, n + 1):
+#     left = ""
+#     for k in range(1, i + 1):
+#         left += str(k)
+#     right = ""
+#     for k in range(i - 1, 0, -1):
+#         right += str(k)
+#     print(" " * (n - i) + left + right)
 
 # 8. 逢 7 过游戏：从 1 报数到 100，遇到 7 的倍数或个位/十位含 7 的数字，
 #    输出 "过"，其余输出数字本身。
@@ -100,18 +121,27 @@ for i in range(1,101):
 #    例：输入 1234 → 输出 4321
 # 提示：每次取个位 i%10，然后 i//=10，循环拼接
 # 你的代码：
-num = int(input("请输入一个整数："))
-
+# ⏳ 已移至「重做练习2-循环逻辑.py」第 6 题
+# 参考实现：
+# num = int(input("请输入一个整数："))
+# rev = 0
+# while num > 0:
+#     digit = num % 10
+#     rev = rev * 10 + digit
+#     num //= 10
+# print(rev)
 
 # 10. 完数（完全数）：一个数恰好等于它的所有真因子（不含自身）之和。
 #     例：6 = 1+2+3，28 = 1+2+4+7+14，它们都是完数。
 #     找出 1~1000 之间所有的完数。
 # 提示：内层找因子累加，外层判断是否等于自身
 # 你的代码：
-a = 0
-for i in range(1,1001):
-    for j in range(1,i):
-        if i % j == 0:
-            a += j
-    if i == j:
-        print(i)
+# ⏳ 已移至「重做练习2-循环逻辑.py」第 7 题
+# 参考实现：
+# for i in range(1, 1001):
+#     s = 0                       # 每个 i 都要重置因子和！
+#     for j in range(1, i):
+#         if i % j == 0:
+#             s += j
+#     if s == i:                  # 判断因子和是否等于自身
+#         print(i)                # → 6 28 496
