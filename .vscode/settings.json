@@ -7,6 +7,7 @@
         "**/.venv": true,
         "识图代理": true,
         "DeepSeek对话记录": true,
-        "学习记录表": true
+        "学习记录表": true,
+        "附录-工具手册/备份恢复": true
     }
 }
