@@ -7,7 +7,6 @@
         "**/.venv": true,
         "识图代理": true,
         "DeepSeek对话记录": true,
-        "学习记录表": true,
-        "/*.txt": true
+        "学习记录表": true
     }
 }

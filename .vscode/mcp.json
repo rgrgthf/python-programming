@@ -2,8 +2,8 @@
   "servers": {
     "vision-proxy": {
       "type": "stdio",
-      "command": "C:\\Users\\22239\\python程序库\\.venv\\Scripts\\python.exe",
-      "args": ["C:\\Users\\22239\\python程序库\\识图代理\\server.py"]
+      "command": "C:\\Users\\22239\\Python药学学习体系\\.venv\\Scripts\\python.exe",
+      "args": ["C:\\Users\\22239\\Python药学学习体系\\识图代理\\server.py"]
     }
   }
 }
