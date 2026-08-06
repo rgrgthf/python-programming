@@ -1,0 +1,84 @@
+# ============================================================
+# 实战：三组实验显著性分析完整流程
+# ============================================================
+# 把前两节串成一条完整流程，直接套用你的实验数据。
+# 场景：对照 / 低剂量 / 高剂量，比较细胞存活率。
+# 步骤：数据准备 → 描述统计 → 正态性 → ANOVA → 事后检验 → 出图
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats
+
+plt.rcParams["font.sans-serif"] = ["SimHei"]
+plt.rcParams["axes.unicode_minus"] = False
+
+# ============================================================
+# 一、准备数据（换成你的真实数据）
+# ============================================================
+control = np.array([95, 93, 97, 94, 96, 95, 92, 96])
+low     = np.array([80, 78, 82, 79, 81, 83, 80, 78])
+high    = np.array([50, 45, 47, 52, 48, 49, 46, 51])
+
+groups = ["对照", "低剂量", "高剂量"]
+data = [control, low, high]
+
+# ============================================================
+# 二、描述统计（均值±标准差）
+# ============================================================
+print("===== 描述统计 =====")
+for name, g in zip(groups, data):
+    print(f"{name}: {g.mean():.2f} ± {g.std():.2f}")
+
+# ============================================================
+# 三、正态性检验
+# ============================================================
+print("\n===== 正态性检验 (Shapiro) =====")
+for name, g in zip(groups, data):
+    w, p = stats.shapiro(g)
+    print(f"{name}: p = {p:.3f} {'正态 ✅' if p > 0.05 else '非正态 ⚠️'}")
+
+# ============================================================
+# 四、单因素 ANOVA
+# ============================================================
+f_stat, p_value = stats.f_oneway(control, low, high)
+print(f"\n===== ANOVA =====\nF = {f_stat:.3f}, p = {p_value:.5f}")
+
+if p_value < 0.05:
+    print("结论：三组间存在显著差异（p < 0.05）")
+    # 需要事后检验找出哪两组不同
+    from statsmodels.stats.multicomp import pairwise_tukeyhsd
+    all_values = np.concatenate(data)
+    all_groups = np.concatenate([[g] * len(d) for g, d in zip(groups, data)])
+    print("\n===== 事后检验 (Tukey HSD) =====")
+    print(pairwise_tukeyhsd(all_values, all_groups))
+else:
+    print("结论：三组间无显著差异")
+
+# ============================================================
+# 五、画柱状图（带误差线）
+# ============================================================
+means = [g.mean() for g in data]
+stds  = [g.std() for g in data]
+
+plt.bar(groups, means, yerr=stds, capsize=5, color=["#999999", "#66b3ff", "#ff9999"])
+plt.ylabel("细胞存活率 (%)")
+plt.title("不同剂量组的细胞存活率")
+plt.ylim(0, 120)
+
+# 手动加显著性标注（在柱子上方画 * 号）
+plt.text(0, max(means) + 15, "***", ha="center", fontsize=12)
+plt.text(1, max(means) + 15, "***", ha="center", fontsize=12)
+plt.text(2, max(means) + 15, "***", ha="center", fontsize=12)
+
+plt.savefig("三组比较.png", dpi=300)
+plt.show()
+
+# ============================================================
+# 六、直接输出论文可用的表述
+# ============================================================
+print("\n===== 论文表述参考 =====")
+print(f"对照组、低剂量组、高剂量组的细胞存活率分别为")
+for name, g in zip(groups, data):
+    print(f"  {name}：{g.mean():.1f}% ± {g.std():.1f}%")
+print(f"单因素方差分析显示三组间差异显著（F={f_stat:.2f}, p={p_value:.3f}）")

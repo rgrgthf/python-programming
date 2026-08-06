@@ -76,7 +76,9 @@ if __name__ == "__main__":
 #   print(utils.cube(2))     # → 8
 #
 # 注意：两个文件要在同一个目录，或模块文件在 sys.path 里
-
+import utils
+print(utils.square(5))
+print(utils.cube(2))
 
 # ============================================================
 # 五、标准库 vs 第三方库

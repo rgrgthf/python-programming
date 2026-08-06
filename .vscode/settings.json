@@ -3,6 +3,7 @@
     "python.defaultInterpreterPath": "C:\\Users\\22239\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
     "files.exclude": {
         "**/.git": true,
+        "**/.vscode": true,
         "**/.venv": true,
         "识图代理": true,
         "DeepSeek对话记录": true,

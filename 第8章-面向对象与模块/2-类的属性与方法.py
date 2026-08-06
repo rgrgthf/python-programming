@@ -103,6 +103,42 @@ class Lottery:
     def draw_many(self, n):
         return [self.draw() for _ in range(n)]
 
+    def draw_unique(self,n):
+        copy = self.items[:]
+        result = []
+        result = random.sample(copy,n)
+        return result
+
+    def draw_unique1(self,n):
+        copy1 = self.items[:]
+        result = []
+        for _ in range(n):
+            x = random.choice(copy1)
+            copy1.remove(x)
+            result.append(x)
+        return result
+    
 lotto = Lottery(["A", "B", "C", "D", "E"])
 print(lotto.draw())            # 随机抽一个
 print(lotto.draw_many(3))      # 随机抽 3 个
+
+# ============================================================
+# 补充：随机但不重复的抽取
+# ============================================================
+# 当前 draw_many 用 random.choice 循环，是"抽完放回"：
+#   随机 ✅，但可能重复（比如抽到 ['B','B','C']）
+#
+# 两种"不重复"方案：
+# ① random.sample(序列, n)：一步到位，保证不重复
+#    random.sample(self.items, 3)   → ['E','A','C']（不重复）
+#
+# ② 手动"抽完不放回"：从列表里取出后移除（自己练手！）
+#    思路：复制一份列表 → 每次 random.choice 抽一个 →
+#          从副本里 remove 掉抽中的 → 再抽下一个
+#
+# 请自己实现一个 draw_unique(self, n) 方法（不重复抽取）：
+# 提示：copy = self.items[:]（复制一份，别改原列表）
+#       for _ in range(n):
+#           x = random.choice(copy)
+#           copy.remove(x)      ← 抽完不放回！
+# 你的代码：

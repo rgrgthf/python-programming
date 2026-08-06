@@ -10,7 +10,7 @@ import os
 # 一、路径相关
 # ============================================================
 print(os.getcwd())          # 当前工作目录
-# → C:\Users\22239\python程序库
+# → C:\Users\22239\Python药学学习体系
 
 # 拼接路径（跨平台推荐！自动处理 / 和 \）
 p = os.path.join("第7章", "test.txt")
@@ -18,17 +18,17 @@ print(p)                    # → 第7章\test.txt（Windows）或 第7章/test.
 
 # 判断文件/目录是否存在
 print(os.path.exists("test.txt"))        # → False（当前目录没有）
-print(os.path.exists("第7章"))           # → True
+print(os.path.exists("第7章-文件与异常处理"))           # → True
 
 # 判断是文件还是目录
-print(os.path.isfile("第7章"))           # → False
-print(os.path.isdir("第7章"))            # → True
+print(os.path.isfile("第7章-文件与异常处理"))           # → False
+print(os.path.isdir("第7章-文件与异常处理"))            # → True
 
 # 拆分路径
-path = os.path.abspath("第7章")          # 转绝对路径
+path = os.path.abspath("第7章-文件与异常处理")          # 转绝对路径
 print(path)
-print(os.path.basename(path))            # → 第7章（最后一段）
-print(os.path.dirname(path))             # → C:\Users\22239\python程序库（上级目录）
+print(os.path.basename(path))            # → 第7章-文件与异常处理（最后一段）
+print(os.path.dirname(path))             # → C:\Users\22239\Python药学学习体系（上级目录）
 
 
 # ============================================================

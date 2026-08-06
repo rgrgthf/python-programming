@@ -74,5 +74,5 @@ f.close()
 # 相对路径：open("test.txt") → 相对当前工作目录
 # 绝对路径：open("C:/Users/.../test.txt")
 # 反斜杠转义：Windows 路径要写 r"C:\..." 或用 /
-# f = open(r"C:\Users\22239\python程序库\第7章\test.txt", "w")
+# f = open(r"C:\Users\22239\Python药学学习体系\第7章-文件与异常处理\test.txt", "w")
 # 注意：不同系统路径分隔符不同，跨平台推荐用 os 模块（后面讲）

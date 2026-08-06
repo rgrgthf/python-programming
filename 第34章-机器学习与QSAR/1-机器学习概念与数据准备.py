@@ -1,0 +1,134 @@
+# ============================================================
+# 机器学习入门 ① — 概念与数据准备
+# ============================================================
+# 机器学习（ML）= 让程序从数据中"学规律"，然后预测新数据。
+# 药物研发中的应用（QSAR/ADMET预测）：
+#   输入：分子描述符/指纹 → 输出：活性/毒性/吸收性质
+
+# ============================================================
+# 一、核心概念
+# ============================================================
+# 特征 X：描述分子的数字（描述符/指纹）
+# 标签 y：要预测的目标（如 IC50、是否有毒）
+# 训练集：有标签的数据（学规律）
+# 测试集：没参与训练的数据（验证学得怎么样）
+#
+# 监督学习：
+#   分类：预测类别（有毒/无毒、活性/无活性）
+#   回归：预测数值（IC50值、LogP）
+#
+# 数据拆分：训练 80% + 测试 20%（避免"背题"式假高准确率）
+
+# ============================================================
+# 二、数据准备：分子 → 特征矩阵
+# ============================================================
+from rdkit import Chem
+from rdkit.Chem import Descriptors
+import numpy as np
+
+# 一批分子（模拟 QSAR 数据集）
+data = [
+    ("CC(=O)Oc1ccccc1C(=O)O", 1),      # (SMILES, 活性标签)
+    ("CC(C)Cc1ccc(cc1)C(C)C(=O)O", 1),
+    ("COc1ccc2cc(ccc2c1)C(C)C(=O)O", 1),
+    ("CC(=O)Nc1ccc(O)cc1", 1),
+    ("CN1CCC23C4C1CC5=C2C(=C(C=C5)O)OC3C(C=C4)O", 1),
+    ("CCCC", 0),                          # 无活性
+    ("CCCCCCCCCC", 0),
+    ("CCO", 0),
+    ("CC(=O)OC", 0),
+    ("CCN", 0),
+]
+
+def featurize(smiles):
+    """分子 → 描述符向量（选几个常用描述符）"""
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        return None
+    return [
+        Descriptors.MolWt(mol),
+        Descriptors.MolLogP(mol),
+        Descriptors.NumHDonors(mol),
+        Descriptors.NumHAcceptors(mol),
+        Descriptors.TPSA(mol),
+        mol.GetNumHeavyAtoms(),
+    ]
+
+X = []   # 特征矩阵
+y = []   # 标签
+for smiles, label in data:
+    feat = featurize(smiles)
+    if feat is not None:
+        X.append(feat)
+        y.append(label)
+
+X = np.array(X)
+y = np.array(y)
+print("特征矩阵形状：", X.shape)    # → (10, 6)（10个分子，6个描述符）
+print("标签：", y)
+
+# 特征名（对应X的每一列）
+feature_names = ["MW", "LogP", "HBD", "HBA", "TPSA", "HeavyAtoms"]
+print("特征列：", feature_names)
+
+# ============================================================
+# 三、数据拆分（train_test_split）
+# ============================================================
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42, stratify=y
+)
+# test_size=0.3 → 30% 做测试
+# random_state=42 → 固定拆分，结果可复现
+# stratify=y → 训练/测试里类别比例一致（分类任务推荐）
+
+print(f"训练集：{len(X_train)} 个，测试集：{len(X_test)} 个")
+
+# ============================================================
+# 四、特征标准化（重要！）
+# ============================================================
+# 各描述符量纲不同（MW~150，HBD~1），需要统一尺度
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)   # 拟合+转换
+X_test_scaled = scaler.transform(X_test)         # 只用转换（用训练集的参数！）
+# ⚠️ 千万不要对测试集 fit！否则"泄漏"训练信息
+
+# 标准化的意义：
+#   1. 让每个特征在模型中贡献均衡
+#   2. 某些算法（SVM/KNN）对尺度敏感，必须标准化
+#   3. 树模型（随机森林）不需要标准化（基于划分）
+
+# ============================================================
+# 五、评价指标
+# ============================================================
+# 分类：
+#   准确率 accuracy = 预测对的总数 / 总数
+#   精确率 precision = 预测为正且对的 / 预测为正的
+#   召回率 recall = 预测为正且对的 / 实际为正的
+#   F1 = 精确率和召回率的调和平均
+#   AUC-ROC：综合衡量，越接近1越好
+#
+# 回归：
+#   R²（决定系数）→ 越接近1越好
+#   RMSE（均方根误差）→ 越小越好
+#
+# 药学场景注意：活性预测常用 AUC 和召回率
+# （漏掉活性分子比误报更重要——宁多筛几个候选）
+
+# ============================================================
+# 六、过拟合概念（最核心的坑）
+# ============================================================
+# 过拟合 = 模型"背下了"训练数据，但对新数据表现差
+# 表现：训练准确率 99%，测试准确率 60%
+# 防治：
+#   1. 更多数据
+#   2. 更简单的模型
+#   3. 交叉验证（KFold，把数据分K份轮流验证）
+#   4. 正则化
+#
+# 交叉验证示例：
+from sklearn.model_selection import cross_val_score
+# 之后配合具体模型演示

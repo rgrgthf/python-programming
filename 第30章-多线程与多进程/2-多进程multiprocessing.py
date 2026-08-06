@@ -1,0 +1,114 @@
+# ============================================================
+# 并发编程 ② — 多进程 multiprocessing
+# ============================================================
+# 多进程 = 真正用多个 CPU 核心（绕开 GIL）。
+# 适合 CPU 密集计算：大量数学运算、特征计算、模型训练。
+# 注意：每个进程独立内存，不能直接共享变量。
+
+import multiprocessing as mp
+import time
+
+# ============================================================
+# 一、CPU 密集任务：多进程 vs 多线程对比
+# ============================================================
+def heavy_calc(n):
+    """大量计算（模拟CPU密集）"""
+    total = 0
+    for i in range(n):
+        total += i ** 2
+    return total
+
+# 串行
+start = time.time()
+for _ in range(4):
+    heavy_calc(3_000_000)
+print(f"串行: {time.time()-start:.2f}秒")
+
+# 多进程（用全部核心）
+if __name__ == "__main__":
+    start = time.time()
+    with mp.Pool() as pool:                    # 进程池
+        pool.map(heavy_calc, [3_000_000] * 4)  # 分给各进程
+    print(f"多进程: {time.time()-start:.2f}秒")
+    # 多核电脑上会明显更快（串行的 1/核心数）
+
+# ============================================================
+# 二、ProcessPoolExecutor（更推荐，写法统一）
+# ============================================================
+from concurrent.futures import ProcessPoolExecutor
+
+def calc_square(x):
+    return x * x
+
+if __name__ == "__main__":
+    with ProcessPoolExecutor(max_workers=4) as executor:
+        results = list(executor.map(calc_square, range(10)))
+    print(results)   # → [0, 1, 4, 9, ...]
+
+# ============================================================
+# 三、⚠️ 必须写在 if __name__ == "__main__" 里！
+# ============================================================
+# Windows 上多进程会重新导入模块，
+# 如果不加保护，会无限递归创建进程！
+# 这是 Windows 多进程的第一大坑。
+
+# ============================================================
+# 四、实战：并行计算分子描述符（药学场景）
+# ============================================================
+# 场景：对 1000 个分子计算描述符（RDKit 计算量大）
+# 说明：需 sci 环境 + rdkit。这里用模拟演示并行思路。
+import random
+
+def calc_descriptors(smiles):
+    """模拟计算一个分子的描述符"""
+    time.sleep(0.05)     # 模拟RDKit计算耗时
+    return {"SMILES": smiles, "MW": random.uniform(100, 500)}
+
+molecules = [f"SMILES-{i}" for i in range(20)]   # 模拟20个分子
+
+if __name__ == "__main__":
+    # 串行
+    start = time.time()
+    serial = [calc_descriptors(m) for m in molecules]
+    print(f"串行: {time.time()-start:.2f}秒")
+
+    # 多进程
+    start = time.time()
+    with ProcessPoolExecutor(max_workers=4) as executor:
+        parallel = list(executor.map(calc_descriptors, molecules))
+    print(f"多进程(4核): {time.time()-start:.2f}秒")
+    print(f"共计算 {len(parallel)} 个分子")
+
+# ============================================================
+# 五、进程间数据传递（了解）
+# ============================================================
+# 多进程不能共享全局变量，需要特殊机制：
+#   - Queue：队列（一个进程放，另一个取）
+#   - Pipe：管道
+#   - Manager：共享对象（较慢）
+# 日常用 pool.map 就够了（传入参数、返回结果），
+# 尽量避免手动共享数据。
+
+# ============================================================
+# 六、多线程 vs 多进程怎么选？
+# ============================================================
+#             多线程 threading   多进程 multiprocessing
+# 适用场景    IO密集(网络/文件)   CPU密集(计算)
+# CPU利用    受GIL限制，单核     真多核并行
+# 内存       共享，省内存        每进程独立，费内存
+# 数据共享    锁（容易）         复杂（Queue等）
+# 速度       等待时不阻塞       计算真并行
+#
+# 快速判断：
+#   任务在等什么？
+#   等网络/文件/数据库 → 多线程
+#   在算数学/算特征    → 多进程
+
+# ============================================================
+# 七、总结
+# ============================================================
+# ProcessPoolExecutor + pool.map（推荐）
+# 必须写 if __name__ == "__main__" 保护（Windows）
+# CPU密集 → 多进程（真并行）
+# IO密集 → 多线程（省资源）
+# 应用：批量算分子描述符、并行交叉验证、批量数据处理
