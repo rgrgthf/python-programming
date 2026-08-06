@@ -68,11 +68,11 @@ print(chr(1))    # SOH（Start of Heading），控制字符，终端通常不可
 # 五、输出到文件
 # ============================================================
 # 使用 file 参数将内容写入文件而非屏幕
-fp = open("test.txt", "w")           # w=写入模式，文件不存在则创建，存在则覆盖
+fp = open("练习输出/test.txt", "w")           # w=写入模式，文件不存在则创建，存在则覆盖
 print("Hello, World!", file=fp)      # 内容写入文件
 fp.close()                           # 一定要关闭文件！
 
 # 推荐用 with 语句（自动关闭，更安全）：
-with open("test1.txt", "w", encoding="utf-8") as f:
+with open("练习输出/test1.txt", "w", encoding="utf-8") as f:
     print("人生苦短，我用Python！", file=f)
 # 缩进块结束后文件自动关闭，无需 f.close()

@@ -23,7 +23,7 @@
 # 二、打开和关闭
 # ============================================================
 # 基本流程：
-f = open("test.txt", "w")     # 以写模式打开（不存在会创建）
+f = open("练习输出/test.txt", "w")     # 以写模式打开（不存在会创建）
 f.write("你好，Python！")      # 写入内容
 f.close()                     # ⚠️ 用完必须关闭！
 
@@ -37,11 +37,11 @@ f.close()                     # ⚠️ 用完必须关闭！
 # 三、读取模式
 # ============================================================
 # 先写点内容供读取
-f = open("test.txt", "w", encoding="utf-8")
+f = open("练习输出/test.txt", "w", encoding="utf-8")
 f.write("第一行\n第二行\n第三行\n")
 f.close()
 
-f = open("test.txt", "r", encoding="utf-8")
+f = open("练习输出/test.txt", "r", encoding="utf-8")
 content = f.read()          # 读全部
 print(content)
 f.close()
@@ -50,11 +50,11 @@ f.close()
 # ============================================================
 # 四、追加模式 a
 # ============================================================
-f = open("test.txt", "a", encoding="utf-8")
+f = open("练习输出/test.txt", "a", encoding="utf-8")
 f.write("追加的一行\n")      # 接在末尾，不清空原有内容
 f.close()
 
-f = open("test.txt", "r", encoding="utf-8")
+f = open("练习输出/test.txt", "r", encoding="utf-8")
 print(f.read())             # 原内容 + 追加的一行
 f.close()
 

@@ -5,13 +5,13 @@
 # ============================================================
 # 一、write() — 写字符串
 # ============================================================
-f = open("out.txt", "w", encoding="utf-8")
+f = open("练习输出/out.txt", "w", encoding="utf-8")
 f.write("hello world")          # 写一个字符串
 f.write("你好")                 # 继续写（接在后面）
 f.close()
 
 # 注意：write() 不会自动加换行！要自己写 "\n"
-f = open("out.txt", "w", encoding="utf-8")
+f = open("练习输出/out.txt", "w", encoding="utf-8")
 f.write("第1行\n")
 f.write("第2行\n")
 f.write("第3行\n")
@@ -21,7 +21,7 @@ f.close()
 # ============================================================
 # 二、⚠️ 写数字会报错！
 # ============================================================
-f = open("out.txt", "w", encoding="utf-8")
+f = open("练习输出/out.txt", "w", encoding="utf-8")
 # f.write(123)       ← 报错！TypeError，write() 只接受字符串
 f.write(str(123))    # ✅ 先转成字符串
 f.write(f"年龄：{18}")  # ✅ 用 f-string 最方便
@@ -32,7 +32,7 @@ f.close()
 # 三、writelines() — 写一个列表
 # ============================================================
 lines = ["第一行\n", "第二行\n", "第三行\n"]
-f = open("out.txt", "w", encoding="utf-8")
+f = open("练习输出/out.txt", "w", encoding="utf-8")
 f.writelines(lines)     # 把列表里的字符串依次写入
 f.close()
 # 注意：writelines 也不会自动加换行，元素里要带 \n
@@ -42,11 +42,11 @@ f.close()
 # 四、写入模式 w 会清空原文件！
 # ============================================================
 # "w" 打开时，原内容全部清空。想保留就换 "a"（追加）
-f = open("out.txt", "w", encoding="utf-8")
+f = open("练习输出/out.txt", "w", encoding="utf-8")
 f.write("新内容")       # 原来的"第一行..."全没了！
 f.close()
 
-f = open("out.txt", "a", encoding="utf-8")
+f = open("练习输出/out.txt", "a", encoding="utf-8")
 f.write("这是追加的")    # 追加模式，不清空
 f.close()
 
@@ -55,13 +55,13 @@ f.close()
 # 五、实战：循环写入
 # ============================================================
 # 把 1~10 的平方写入文件，每行一个
-f = open("squares.txt", "w", encoding="utf-8")
+f = open("练习输出/squares.txt", "w", encoding="utf-8")
 for i in range(1, 11):
     f.write(f"{i} 的平方 = {i * i}\n")
 f.close()
 
 # 读取验证
-f = open("squares.txt", "r", encoding="utf-8")
+f = open("练习输出/squares.txt", "r", encoding="utf-8")
 print(f.read())
 f.close()
 # 输出：

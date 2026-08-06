@@ -49,7 +49,7 @@ except Exception as e:      # e 是错误对象，能打印详细信息
 # else：try 没出错时执行
 # finally：无论是否出错都会执行（通常用于清理）
 try:
-    f = open("test.txt", "r", encoding="utf-8")
+    f = open("练习输出/test.txt", "r", encoding="utf-8")
 except FileNotFoundError:
     print("文件不存在")
 else:

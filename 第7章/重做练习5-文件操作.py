@@ -12,7 +12,7 @@
 #     第二行
 #     第三行
 # 写出输出：
-f = open("test.txt", "r", encoding="utf-8")
+f = open("练习输出/test.txt", "r", encoding="utf-8")
 print(f.readline())
 print(f.readline())
 print(f.read())
@@ -41,7 +41,7 @@ os.path.isdir(path)看是不是目录
 # 上次的问题：忘了加偶数过滤，把所有数都写进去了
 # 提示：if i % 2 == 0
 # 你的代码：
-with open("evens.txt","w",encoding="utf-8") as f:
+with open("练习输出/evens.txt","w",encoding="utf-8") as f:
     for i in range(1,21):
         if i % 2 == 0:
             f.write(str(i) + "\n")
@@ -51,7 +51,7 @@ with open("evens.txt","w",encoding="utf-8") as f:
 # 上次的问题：encoding 拼写成 encodong，程序直接报错
 # 提示：写完先自查拼写，再运行；sum 别当变量名（会覆盖内置函数）
 # 你的代码：
-with open("evens.txt","r",encoding="utf-8") as f:
+with open("练习输出/evens.txt","r",encoding="utf-8") as f:
     count = 0
     total = 0
     for line in f:

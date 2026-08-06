@@ -7,12 +7,12 @@
 # 一、基本写法
 # ============================================================
 # 传统写法
-f = open("test.txt", "w", encoding="utf-8")
+f = open("练习输出/test.txt", "w", encoding="utf-8")
 f.write("你好")
 f.close()                    # 手动关闭
 
 # with 写法（推荐）
-with open("test.txt", "w", encoding="utf-8") as f:
+with open("练习输出/test.txt", "w", encoding="utf-8") as f:
     f.write("你好")
 # 缩进块结束，文件自动关闭，无需 close()
 
@@ -21,7 +21,7 @@ with open("test.txt", "w", encoding="utf-8") as f:
 # 二、with 为什么安全？
 # ============================================================
 # 就算中间报错，with 也会保证文件被关闭（异常也会走关闭）
-with open("test.txt", "w", encoding="utf-8") as f:
+with open("练习输出/test.txt", "w", encoding="utf-8") as f:
     f.write("1\n")
     # raise Exception("出错")    # 假设这里出错
     f.write("2\n")
@@ -31,7 +31,7 @@ with open("test.txt", "w", encoding="utf-8") as f:
 # ============================================================
 # 三、读文件用 with
 # ============================================================
-with open("test.txt", "r", encoding="utf-8") as f:
+with open("练习输出/test.txt", "r", encoding="utf-8") as f:
     content = f.read()
     print(content)
 # 读取结束自动关闭
@@ -41,8 +41,8 @@ with open("test.txt", "r", encoding="utf-8") as f:
 # 四、同时开多个文件
 # ============================================================
 # 读一个文件，写入另一个（复制文件）
-with open("test.txt", "r", encoding="utf-8") as src, \
-     open("copy.txt", "w", encoding="utf-8") as dst:
+with open("练习输出/test.txt", "r", encoding="utf-8") as src, \
+     open("练习输出/copy.txt", "w", encoding="utf-8") as dst:
     for line in src:           # 逐行读
         dst.write(line)        # 逐行写
 # 两个文件都自动关闭

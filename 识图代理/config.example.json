@@ -1,0 +1,5 @@
+{
+  "api_key": "在这里填你的智谱API Key（open.bigmodel.cn 免费注册）",
+  "model": "glm-4v-flash",
+  "base_url": "https://open.bigmodel.cn/api/paas/v4/chat/completions"
+}

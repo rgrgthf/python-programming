@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "vision-proxy": {
+      "type": "stdio",
+      "command": "C:\\Users\\22239\\python程序库\\.venv\\Scripts\\python.exe",
+      "args": ["C:\\Users\\22239\\python程序库\\识图代理\\server.py"]
+    }
+  }
+}

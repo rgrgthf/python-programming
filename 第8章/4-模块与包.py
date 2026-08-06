@@ -99,5 +99,5 @@ import random
 
 import requests      # 第三方库（空一行分隔）
 
-import mytools       # 自己写的模块（再空一行）
+# import mytools     # 自己写的模块（示例：需先创建 mytools.py 才能用）
 # 方便一眼看出：哪些是系统自带、哪些是装的、哪些是自己的

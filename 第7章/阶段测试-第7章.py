@@ -27,7 +27,7 @@ utf-8是中文的编码方式，如果不强调编码方式，windows系统默�
 # ========== 二、文件的读取 ==========
 
 # 3.【读代码】同上假设，写出输出结果：
-f = open("test.txt", "r", encoding="utf-8")
+f = open("练习输出/test.txt", "r", encoding="utf-8")
 print(f.readline())
 print(f.readline())
 print(f.read())
@@ -40,7 +40,7 @@ f.close()
 #   read()     → 第三行
 
 # 4.【读代码】同上假设，写出输出结果：
-f = open("test.txt", "r", encoding="utf-8")
+f = open("练习输出/test.txt", "r", encoding="utf-8")
 lines = f.readlines()
 print(len(lines))
 print(lines[0].strip())
