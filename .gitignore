@@ -29,6 +29,9 @@ Thumbs.db
 tmp/
 temp/
 
+# Office/Excel 临时文件（打开文件时生成的锁文件，别提交）
+~$*
+
 # 识图代理：API Key 配置文件（含密钥，不入库）
 识图代理/config.json
 
