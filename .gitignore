@@ -50,3 +50,8 @@ DeepSeek对话记录/
 
 # 专业课（课程笔记/实验数据）
 专业课/
+
+# 运行教学代码生成的临时数据文件
+**/data_big.txt
+**/large.txt
+rx.json
