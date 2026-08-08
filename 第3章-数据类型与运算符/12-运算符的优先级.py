@@ -147,4 +147,15 @@ print(not 5 > 3 and 2 < 1 or 8 == 8)  # → ?
 # ~10 → -11                 （~n = -n-1）
 # 5 + 3*2**2 → 5+3*4 → 17  （** > * > +）
 # 6<<1&7|3^2 → 12&7|3^2 → 4|3^2 → 4|1 → 5
-# not True and False or True → False and False or True → False or True → True
+# not True and False or True → False and Fal
+
+# ============================================================
+# 七、易错点 + 自测
+# ============================================================
+# 1. 优先级（高到低）：括号 > 幂 > 乘除 > 加减 > 比较 > not > and > or
+# 2. 复杂表达式【加括号】，别靠记忆猜优先级
+# 3. 记口诀：括号最优先，not > and > or
+# 4. 混用时先用括号明确，代码可读性优先
+# 【基础】not/and/or 谁的优先级最高？
+# 【中等】为什么复杂表达式要加括号？
+# 【挑战】算：not True and False or True 的结果。se or True → False or True → True

@@ -149,3 +149,34 @@ torch.save(model.state_dict(), "simple_nn.pth")
 # 损失：回归MSE / 分类CrossEntropy
 # 优化：Adam（自动调学习率）
 # 保存：torch.save(state_dict)
+
+# ============================================================
+# 六、易错点汇总
+# ============================================================
+# 1. 核心对象：Tensor（张量，类似 numpy 数组 + GPU）
+# 2. 自动求导：requires_grad=True + 反向传播 backward()；
+#    with torch.no_grad() 里不要梯度（推理/评估时用）
+# 3. 模型三件套：定义（nn.Module）→ 损失（nn.MSELoss）→
+#    优化器（optim.Adam）
+# 4. 训练循环：零梯度（zero_grad）→ 前向 → 损失 → backward →
+#    optimizer.step()；别忘 zero_grad！
+# 5. 数据要转成 tensor 并匹配 dtype（float32）
+# 6. 保存模型用 torch.save(model.state_dict())；
+#    加载用 load_state_dict
+
+# ============================================================
+# 七、自测（40%基础 + 40%中等 + 20%挑战）
+# ============================================================
+# 【基础】
+# 1. Tensor 是什么？和 numpy 数组的关系？
+# 2. 模型定义/损失/优化器三件套是什么？
+# 3. 训练循环里忘记 zero_grad 会怎样？
+#
+# 【中等】
+# 4. 定义一个小神经网络（nn.Module）。
+# 5. 写完整的训练循环（前向/损失/backward/step）。
+# 6. 保存和加载模型参数。
+#
+# 【挑战】
+# 7. 训练一个简单的回归网络并评估。
+# 8. 解释 with torch.no_grad() 什么时候用、为什么。

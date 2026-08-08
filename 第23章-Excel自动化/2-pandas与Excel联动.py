@@ -120,3 +120,33 @@ from openpyxl.styles import Font
 # 写：df.to_excel（index=False，多表用 ExcelWriter）
 # 清洗：to_numeric + fillna + dropna
 # 报告：数据表 + 统计表 + 样式 一条龙
+
+# ============================================================
+# 六、易错点汇总
+# ============================================================
+# 1. pandas 的 to_excel 底层依赖 openpyxl，
+#    没装 openpyxl 会报错
+# 2. 写多个 sheet 用 pd.ExcelWriter(路径) + to_excel(sheet_name=)
+#    最后 writer.save() 或 with 语句自动保存
+# 3. to_excel 默认带索引列，表格数据记得 index=False
+# 4. pandas 写样式（列宽/颜色）能力弱，
+#    要精细样式用 openpyxl 二次处理
+# 5. 读 Excel 用 pd.read_excel(sheet_name=)
+# 6. Excel 里数字可能被读成字符串/日期，注意 dtype
+
+# ============================================================
+# 七、自测（40%基础 + 40%中等 + 20%挑战）
+# ============================================================
+# 【基础】
+# 1. to_excel 依赖什么库？
+# 2. 怎么避免导出时带索引列？
+# 3. 读 Excel 用什么函数？
+#
+# 【中等】
+# 4. 用 pandas 把一个 DataFrame 导出为 Excel。
+# 5. 用 ExcelWriter 写两个 sheet（原始+汇总）。
+# 6. 读回 Excel 并检查 dtype。
+#
+# 【挑战】
+# 7. pandas 写表 + openpyxl 美化样式，生成完整实验报告。
+# 8. 说明 pandas 和 openpyxl 各自擅长什么，如何配合。

@@ -98,4 +98,16 @@ print(int("123"))     # → 123
 print(float("3.14"))  # → 3.14
 #将字符串转成int或float时报错的情况
 print(int("3.14"))   # 报错：ValueError: invalid literal for int() with base 10: '3.14'
-print(float("abc"))    # 报错：ValueError: could not convert string to float: 'abc'
+print(float("abc"))    # 报错：ValueError: coul
+
+# ============================================================
+# 六、易错点 + 自测
+# ============================================================
+# 1. int / float / complex；布尔 bool 也是数字（True=1）
+# 2. 浮点精度问题：0.1+0.2 ≠ 0.3（用 round 或 isclose）
+# 3. 类型转换：int("123")/float("1.5")；
+#    转不了会 ValueError
+# 4. 除法的坑：/ 得 float，// 整除，% 取余
+# 【基础】int 和 float 的区别？
+# 【中等】0.1+0.2 为什么不是 0.3？
+# 【挑战】/ 和 // 和 % 的区别？各举一例。d not convert string to float: 'abc'

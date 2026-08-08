@@ -126,3 +126,34 @@ print(Chem.MolToSmiles(s1), Chem.MolToSmiles(s2))  # → CCO CCO（一样！）
 #   吗啡:                     CN1CCC23C4C1CC5=C2C(=C(C=C5)O)OC3C(C=C4)O
 #   咖啡因:                   Cn1cnc2c1c(=O)n(C)c(=O)n2C
 # 每个都用 Chem.MolFromSmiles 试一下，print 出分子量/化学式
+
+# ============================================================
+# 六、易错点汇总
+# ============================================================
+# 1. Chem.MolFromSmiles 解析失败会返回 None（不报错），
+#    用前要判空：if mol is not None
+# 2. SMILES 大小写/括号/原子价写错就解析失败；
+#    芳香环、支链、电荷都要按规则写
+# 3. RDKit 在 Windows 用 pip 可能装不上，
+#    官方建议用 conda：conda install -c conda-forge rdkit
+# 4. 分子量/化学式用 Descriptors / Chem.rdMolDescriptors 计算
+# 5. 一个 SMILES 对应一个分子，但同一分子可有多个合法 SMILES
+#    （用 CanonicalSMILES 得到唯一规范形式）
+# 6. 后续所有章节都建立在"能把 SMILES 转成分子对象"上
+
+# ============================================================
+# 七、自测（40%基础 + 40%中等 + 20%挑战）
+# ============================================================
+# 【基础】
+# 1. MolFromSmiles 解析失败返回什么？用前要做什么？
+# 2. SMILES 是什么？有什么用途？
+# 3. RDKit 官方推荐的安装方式是什么？
+#
+# 【中等】
+# 4. 用 SMILES 创建阿司匹林分子并打印分子量。
+# 5. 解析多个 SMILES，处理解析失败的情况。
+# 6. 用 CanonicalSMILES 得到规范形式。
+#
+# 【挑战】
+# 7. 写一个函数：输入 SMILES 列表，输出每个分子的分子量/化学式。
+# 8. 解释为什么同一分子可以有多个 SMILES。

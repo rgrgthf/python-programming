@@ -31,7 +31,7 @@ Path("test_dir/sub/a").mkdir(parents=True, exist_ok=True)
 
 # 列出目录内容
 for item in Path(".").iterdir():
-    print(item.name, "📁" if item.is_dir() else "📄")
+    print(item.name, "[目录]" if item.is_dir() else "[文件]")
 
 # 通配符匹配
 py_files = list(Path(".").glob("*.py"))
@@ -133,5 +133,34 @@ shutil.rmtree("test_dir", ignore_errors=True)
 # 总结
 # ============================================================
 # 日常优先用 pathlib（Path 对象，更现代）
+
+# ============================================================
+# 八、易错点汇总
+# ============================================================
+# 1. Path 用 / 拼接（p / "file.py"），别用字符串 +（跨平台会错）
+# 2. mkdir 要加 parents=True, exist_ok=True，
+#    否则父目录不存在或已存在都会报错
+# 3. Path.glob("*.py") 返回生成器，要 list() 才能拿到全部
+# 4. Path 对象和 str 不能混用：shutil 需要 str，用 str(p) 转
+# 5. rename/unlink/rmdir 都是【永久操作】，没有回收站，慎用！
+# 6. os.path 是老 API，新代码优先 pathlib
+
+# ============================================================
+# 九、自测（40%基础 + 40%中等 + 20%挑战）
+# ============================================================
+# 【基础】
+# 1. pathlib 里 Path 对象怎么拼接路径？
+# 2. Path(".").glob("*.py") 返回什么？怎么转成列表？
+# 3. os.path 和 pathlib 的区别？新代码用哪个？
+#
+# 【中等】
+# 4. 用 pathlib 创建嵌套目录 a/b/c（忽略已存在报错）。
+# 5. 列出某文件夹下所有 .csv 文件（glob）。
+# 6. 用 shutil 把某文件夹打包成 zip 备份。
+#
+# 【挑战】
+# 7. 写批量重命名：把 result_01.dat 系列改成 样品_日期_编号.dat
+#    （参考第六节重写一遍，注意用 Path.rename）。
+# 8. 写 folder_stats 统计函数，返回文件数和总大小（KB）。
 # os.path 读老代码要用；shutil 负责复制/移动/压缩
 # 批量处理文件 = glob 匹配 + 循环 + rename/move

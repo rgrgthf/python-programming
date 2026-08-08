@@ -114,3 +114,33 @@ def process_experiment(data_path, logger):
 # 正式用：getLogger + StreamHandler + FileHandler
 # 级别：DEBUG/INFO/WARNING/ERROR/CRITICAL
 # 好习惯：程序关键步骤都打 INFO，异常打 ERROR
+
+# ============================================================
+# 七、易错点汇总
+# ============================================================
+# 1. basicConfig 和 getLogger+handler 不要混用（重复输出）
+# 2. FileHandler 记得 encoding="utf-8"，否则中文乱码
+# 3. 日志字符串用 % 占位符（懒计算）：
+#    logger.info("值: %s", v) 比 logger.info(f"值: {v}") 快
+#    （f-string 即使不输出也会先拼好字符串）
+# 4. 级别搞清顺序：DEBUG < INFO < WARNING < ERROR < CRITICAL
+# 5. logger.exception() 要放在 except 里，自带完整堆栈
+# 6. 一个 logger 不要重复 addHandler（会打多遍）
+
+# ============================================================
+# 八、自测（40%基础 + 40%中等 + 20%挑战）
+# ============================================================
+# 【基础】
+# 1. logging 的五个级别从低到高是什么？
+# 2. basicConfig 里 level 是干嘛的？
+# 3. logging 相比 print 的三个好处？
+#
+# 【中等】
+# 4. 配置 logging 同时输出到控制台和文件。
+# 5. 在实验处理函数里：读取成功打 INFO、
+#    空值打 WARNING、文件不存在打 ERROR。
+# 6. logger.exception 和 logger.error 的区别？
+#
+# 【挑战】
+# 7. 写一个函数用 try/except + logger.exception 记录完整错误。
+# 8. 解释为什么日志用 %s 占位符比 f-string 好（性能角度）。
